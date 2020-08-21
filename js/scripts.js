@@ -9,8 +9,18 @@ function validateForm(e) {
   console.log("password: " + validatePassword());
 
   if (validateUsername() && validateEmail() && validatePassword()) {
-    var _newUser = getUserName();
-    registeredUsers.push(getUserName());
+    var _newUser = {
+      firstname: getFirstName(),
+      lastname: getLastName(),
+      username: getUserName(),
+      phonenumber: getPhoneNumber(),
+      email: getEmail(),
+    };
+    registeredUsers.push(_newUser);
+
+    if (registeredUsers.length > 5) {
+      registeredUsers.shift();
+    }
 
     document.getElementById("registered-users").innerHTML = "";
 
@@ -21,9 +31,25 @@ function validateForm(e) {
 
 function renderRegisteredUsers() {
   registeredUsers.forEach(function (registeredUser) {
-    var _newUser = document.createElement("li");
-    _newUser.innerHTML = registeredUser;
-    document.getElementById("registered-users").appendChild(_newUser);
+    var _newUserName = document.createElement("li");
+    _newUserName.innerHTML = "Username: " + registeredUser.username;
+    document.getElementById("registered-users").appendChild(_newUserName);
+
+    var _newFirstName = document.createElement("li");
+    _newFirstName.innerHTML = "First name: " + registeredUser.firstname;
+    document.getElementById("registered-users").appendChild(_newFirstName);
+
+    var _newLastName = document.createElement("li");
+    _newLastName.innerHTML = "Last name: " + registeredUser.lastname;
+    document.getElementById("registered-users").appendChild(_newLastName);
+
+    var _newEmail = document.createElement("li");
+    _newEmail.innerHTML = "Email: " + registeredUser.email;
+    document.getElementById("registered-users").appendChild(_newEmail);
+
+    var _newPhoneNumber = document.createElement("li");
+    _newPhoneNumber.innerHTML = "Phonenumber: " + registeredUser.phonenumber;
+    document.getElementById("registered-users").appendChild(_newPhoneNumber);
   });
 }
 
@@ -35,6 +61,39 @@ function validateUsername() {
   var _userName = getUserName();
 
   return !checkSpace(_userName);
+}
+
+/**
+ * this function supposely validates submitted first name
+ * @returns [Boolean] true when valid, false otherwise
+ */
+
+function validateFirstname() {
+  var _firstName = getFirstName();
+
+  return _firstName != "";
+}
+
+/**
+ * this function supposely validates submitted lastname
+ * @returns [Boolean] true when valid, false otherwise
+ */
+
+function validateLastname() {
+  var _lastName = getLastName();
+
+  return _lastName != "";
+}
+
+/**
+ * this function supposely validates submitted phonenumber
+ * @returns [Boolean] true when valid, false otherwise
+ */
+
+function validatePhoneNumber() {
+  var _phoneNumber = getPhoneNumber();
+
+  return !isNaN(_phoneNumber) && _phoneNumber.length > 5;
 }
 
 /**
@@ -80,6 +139,18 @@ function validatePassword() {
     return false;
   }
 
+  if (_password.length < 8) {
+    return false;
+  }
+
+  if (_password == _password.toLowerCase()) {
+    return false;
+  }
+
+  if (!/\d/.test(_password)) {
+    return false;
+  }
+
   return true;
 }
 
@@ -105,6 +176,30 @@ function getUserName() {
     return "";
   } else {
     return document.registration.username.value;
+  }
+}
+
+function getFirstName() {
+  if (typeof document.registration.firstname.value === "undefined") {
+    return "";
+  } else {
+    return document.registration.firstname.value;
+  }
+}
+
+function getLastName() {
+  if (typeof document.registration.lastname.value === "undefined") {
+    return "";
+  } else {
+    return document.registration.lastname.value;
+  }
+}
+
+function getPhoneNumber() {
+  if (typeof document.registration.phonenumber.value === "undefined") {
+    return "";
+  } else {
+    return document.registration.phonenumber.value;
   }
 }
 
