@@ -1,4 +1,31 @@
 (function ($) {
+  $("#ask").click(function getWeatherData(e) {
+    e.preventDefault();
+    var city = $("#weather-query").val();
+    $.ajax({
+      url:
+        "//api.openweathermap.org/data/2.5/weather?q=" +
+        city +
+        "&units=metric&APIKEY=de86f8456ac40f4240e598abf4783999",
+    }).done(function (resp) {
+      console.log(resp);
+      var sentence =
+        city +
+        " today is +" +
+        resp.main.temp +
+        "degrees and it feels like " +
+        resp.main.feels_like;
+      console.log(sentence);
+      $("#forecast").text(
+        city +
+          " today is +" +
+          resp.main.temp +
+          " degrees and it feels like " +
+          resp.main.feels_like
+      );
+    });
+  });
+
   var registeredUsers = []; // this array stores valid usernames until the next pageload
 
   function validateForm(e) {
@@ -228,45 +255,45 @@
     }
   }
 
-  var sliderEl = document.createElement("section");
-  sliderEl.classList.add("lazy", "slider");
-  sliderEl.setAttribute("data-sizes", "50vw");
-  document.body.appendChild(sliderEl);
+  // var sliderEl = document.createElement("section");
+  // sliderEl.classList.add("lazy", "slider");
+  // sliderEl.setAttribute("data-sizes", "50vw");
+  // document.body.appendChild(sliderEl);
 
-  function addSlide(imgUrl = "http://placehold.it/650x300?text=1-650w") {
-    // if(typeof(imgUrl) === 'undefined') {
-    //     imgUrl = 'http://placehold.it/650x300?text=1-650w';
-    // }
+  // function addSlide(imgUrl = "http://placehold.it/650x300?text=1-650w") {
+  //   // if(typeof(imgUrl) === 'undefined') {
+  //   //     imgUrl = 'http://placehold.it/650x300?text=1-650w';
+  //   // }
 
-    var slide = document.createElement("div");
-    var slideImage = document.createElement("img");
-    slideImage.setAttribute("data-lazy", imgUrl);
-    slideImage.setAttribute("data-srcset", imgUrl);
-    slideImage.setAttribute("data-sizes", "100vw");
-    slide.appendChild(slideImage);
+  //   var slide = document.createElement("div");
+  //   var slideImage = document.createElement("img");
+  //   slideImage.setAttribute("data-lazy", imgUrl);
+  //   slideImage.setAttribute("data-srcset", imgUrl);
+  //   slideImage.setAttribute("data-sizes", "100vw");
+  //   slide.appendChild(slideImage);
 
-    sliderEl.appendChild(slide);
-  }
+  //   sliderEl.appendChild(slide);
+  // }
 
-  var imgUrl =
-    "//www.partioaitta.fi/bo-assets/binaryImages/96/klubitarjoukset-syyskuu-1500x450-35796.jpg?v=a2f7e6b30e35dcebdce0ae0d0c278e93";
+  // var imgUrl =
+  //   "//www.partioaitta.fi/bo-assets/binaryImages/96/klubitarjoukset-syyskuu-1500x450-35796.jpg?v=a2f7e6b30e35dcebdce0ae0d0c278e93";
 
-  addSlide(imgUrl);
-  addSlide(imgUrl);
-  addSlide(imgUrl);
-  addSlide(imgUrl);
-  addSlide(imgUrl);
-  addSlide(imgUrl);
-  addSlide(imgUrl);
-  addSlide(imgUrl);
-  addSlide(imgUrl);
+  // addSlide(imgUrl);
+  // addSlide(imgUrl);
+  // addSlide(imgUrl);
+  // addSlide(imgUrl);
+  // addSlide(imgUrl);
+  // addSlide(imgUrl);
+  // addSlide(imgUrl);
+  // addSlide(imgUrl);
+  // addSlide(imgUrl);
 
-  $(document).ready(function () {
-    $(".lazy").slick({
-      lazyLoad: "ondemand", // ondemand progressive anticipated
-      infinite: true,
-      autoplay: true,
-      dots: true,
-    });
-  });
+  // $(document).ready(function () {
+  //   $(".lazy").slick({
+  //     lazyLoad: "ondemand", // ondemand progressive anticipated
+  //     infinite: true,
+  //     autoplay: true,
+  //     dots: true,
+  //   });
+  // });
 })(window.jQuery);

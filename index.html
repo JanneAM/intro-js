@@ -144,8 +144,34 @@
         </div>
       </fieldset>
     </form>
+    <!--Weather search form-->
+    <form name="get-weather" class="form-horizontal">
+      <fieldset>
+        <div class="control-group">
+          <!-- Password -->
+          <label class="control-label" for="weather-query">Input city</label>
+          <div class="controls">
+            <input
+              type="text"
+              id="weather-query"
+              name="weather-query"
+              placeholder=""
+              class="input-xlarge"
+            />
+          </div>
+        </div>
+
+        <div class="control-group">
+          <!-- Button -->
+          <div class="controls">
+            <button id="ask" class="btn btn-success">Search</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
     <div>These users have input correct information for registration:</div>
     <ul id="registered-users"></ul>
+    <p id="forecast"></p>
 
     <!--Scripts-->
     <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
