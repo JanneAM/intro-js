@@ -2,17 +2,20 @@ var HOURHAND = document.getElementById("hour");
 var MINUTEHAND = document.getElementById("minute");
 var SECONDHAND = document.getElementById("second");
 
-var now = new Date();
-var sec = now.getSeconds();
-var min = now.getMinutes();
-var hr = now.getHours();
-var angle = 360 / 60;
+var now = new Date(),
+  min = now.getMinutes(),
+  sec = now.getSeconds(),
+  hr = now.getHours(),
+  degree = 360 / 60;
+
+var deltaSec = degree * sec,
+  deltaMin = degree * min + (sec / 60) * degree,
+  deltaHr = degree * 5 * hr + (min / 60) * degree * 5;
 
 function moveArms() {
-  sec += 1;
-  var deltaSec = angle * sec;
-  var deltaMin = angle * min + (deltaSec / 60) * angle;
-  var deltaHr = angle * 5 * hr + (deltaMin / 60) * angle * 5;
+  deltaSec += degree; // second arm moves extra 6/60 deg every sec
+  deltaMin += degree / 60; // minute arm moves extra 6/60 deg every sec
+  deltaHr += degree / 60 / 60; // hour arm moves extra 6/60/60 deg every sec
 
   SECONDHAND.style.transform = `rotate(${deltaSec}deg)`;
   MINUTEHAND.style.transform = `rotate(${deltaMin}deg)`;
